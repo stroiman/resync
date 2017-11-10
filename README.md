@@ -5,9 +5,13 @@ from reason code. The driver is asynchronous, and can be used with either
 callbacks or promises. But using promises in the heart of my reason code just
 felt wrong, so slowly work for this library began.
 
-This library has not been published to npm yet, but can be installed with
+This library has been published as 're-sync' to npm
 
-    npm install --save git+https://github.com/PeteProgrammer/resync.git
+    npm install --save re-sync
+
+or
+
+    yarn add re-sync
 
 ## Description
 
@@ -35,7 +39,7 @@ Useful funcitons.
      exception was handled, and `None` if it wasn't.
  * `timeout` Helps handling handling functions that take too long to execute
  * `from_js` Helps creating an `Async.t` from an async javascript function. See
-     exmample later
+     exmaple later
 
 Look at the example tests for a hint as to their usage.
 
