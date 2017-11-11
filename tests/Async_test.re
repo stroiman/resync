@@ -94,18 +94,18 @@ describe("Async module", [
     })
   ]),
 
-  describe("catch", [
+  describe("tryCatch", [
     it("async resolve Some value", (_) => {
       Async.return(43)
         |> Async.map(~f=(_) => { raise(Dummy2) })
-        |> Async.catch(~f=fun | Dummy => Some(42) | _ => None)
+        |> Async.tryCatch(~f=fun | Dummy => Some(42) | _ => None)
         |> shoulda(asyncThrow >=> equal(Dummy2))
     }),
 
     it("async throws None value", (_) => {
       Async.return(43)
         |> Async.map(~f=(_) => { raise(Dummy) })
-        |> Async.catch(~f=fun | Dummy => Some(42) | _ => None)
+        |> Async.tryCatch(~f=fun | Dummy => Some(42) | _ => None)
         |> shoulda(asyncResolve >=> equal(42))
     }),
   ]),

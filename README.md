@@ -35,7 +35,7 @@ Useful funcitons.
      context.
  * `return` Takes a value, and returns an async context resolving that value. In
      a promise context, this would correspond to `Promise.resolve`
- * `catch` Takes a function that might handle an exception. Return `Some` if the
+ * `tryCatch` Takes a function that might handle an exception. Return `Some` if the
      exception was handled, and `None` if it wasn't.
  * `timeout` Helps handling handling functions that take too long to execute
  * `from_js` Helps creating an `Async.t` from an async javascript function. See

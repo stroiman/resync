@@ -29,7 +29,7 @@ let map = (~f: 'a => 'b, x: t('a)) : t('b) =>
       errorCb
     ));
 
-let catch = (~f: exn=>option('a), x:t('a)) : t('a) => {
+let tryCatch = (~f: exn=>option('a), x:t('a)) : t('a) => {
   ((successCb, errorCb)) => x((successCb, 
     x => switch(f(x)) {
       | Some(x) => successCb(x)
