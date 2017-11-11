@@ -1,0 +1,8 @@
+deploy:
+  provider: npm
+  email: peter@stroiman.com
+  api_key:
+    secure: RbtH5fnAHCUf+sth5DUt0TgXsjMRhDD/QvvMq/kzXZpjTxAMMC26Mr4uE7GGhKo9WFvNATRfkUIMGewd6DG/+bWVyY4CPhoGv9+/r6k9igXF8uZ8NUyY4iaKmWxQtkPk1ls8FI9FGFlALOz0l60WmdiVqGgso//nd0IBWoNMbXAhY4CudQaENd2t19ilygyrJwP6Mqtbzsc5T0PzWMuy8eQguC4EGKM1IW7929eNecTrjcqCoGJxc+/djAQN7gxRLRNZUPLYi2bM6TWTow2SkpoOPY6diokdOYXyfVSYJZgIZR5LE3dlY/xyqDK7lpV+GzvCAilSuGpAwffZzmJeU+F+HYg0mjVYvnz+1pbsFWJ7mTqDNSCanWmUqYoYZIsuQB+wfO4LxhbG1AoJwYKWTzOSMwIyfaChgBpTkRBKZo+cYnO0vgogmJpgiGRqlhPNrmwvsI6NavjMR7jj/Z+LxW431hbzdt+rGp4ShMaRpBbswkiEZBbof6ZX/TB+UP7W04FyhutLysqp3xT0x69eHdaeW2e3bPs9z+CUSuug9P2p/2cesEQVBOS6VcqDvvhSuBsEqg82XbyK0vAXefMc02qWjlP92Q64dMR2OpT/Q9nITixq2WfnOopduhjaXhA5r4gm1Xy/zshpFR3k9QCwMG7D45vWHbNzf8lYGgTOfYk=
+  on:
+    tags: true
+    repo: PeteProgrammer/resync

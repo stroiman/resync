@@ -5,7 +5,8 @@
     "build": "bsb -make-world",
     "watch": "bsb -make-world -w",
     "clean": "bsb -clean-world",
-    "test": "respect",
+    "test:run": "respect",
+    "test": "run-s build test:run",
     "test:watch": "nodemon node_modules/re-respect/bin/respect",
     "dev": "run-p watch test:watch"
   },
