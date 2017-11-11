@@ -17,7 +17,7 @@
   "devDependencies": {
     "bs-platform": "2.0.0",
     "nodemon": "^1.12.1",
-    "re-respect": "^0.0.6",
-    "npm-run-all": "^4.1.2"
+    "npm-run-all": "^4.1.2",
+    "re-respect": "0.0.8"
   }
 }
