@@ -2,11 +2,11 @@
   "name": "re-sync",
   "version": "0.1.1",
   "scripts": {
-    "build": "bsb -make-world",
+    "build": "bsb -make-world -verbose",
     "watch": "bsb -make-world -w",
-    "clean": "bsb -clean-world",
+    "clean": "bsb -clean-world -verbose",
     "test:run": "respect",
-    "test": "run-s build test:run",
+    "test": "run-s clean build test:run",
     "test:watch": "nodemon node_modules/re-respect/bin/respect",
     "dev": "run-p watch test:watch"
   },
