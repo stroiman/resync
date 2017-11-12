@@ -1234,16 +1234,11 @@ rc@^1.0.1, rc@^1.1.6, rc@^1.1.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-re-respect@0.0.8:
-  version "0.0.8"
-  resolved "https://registry.yarnpkg.com/re-respect/-/re-respect-0.0.8.tgz#996b1d3b17592d673f59f758871e4641f22c0acd"
+re-respect@0.0.9:
+  version "0.0.9"
+  resolved "https://registry.yarnpkg.com/re-respect/-/re-respect-0.0.9.tgz#cbc8c1518835f571d877223097c6c786c3b7368f"
   dependencies:
     glob "^7.1.2"
-    re-sync "^0.1.0"
-
-re-sync@^0.1.0:
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/re-sync/-/re-sync-0.1.1.tgz#b0f49b0d51f457ab04e4a832ed9461ac19e59789"
 
 read-pkg@^3.0.0:
   version "3.0.0"
