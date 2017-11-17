@@ -73,7 +73,12 @@ let timeout = (duration:duration, x:t('a)) : t('a) => {
 let from_callback = (fn: ('a => unit) => unit) : t('a) =>
   ((successCb, _)) => fn(successCb);
 
-let run = (~fe=?, f, x) => {
-  let fe=fe |> Js.Option.getWithDefault(ignore);
+let run = (~fe=?, f : 'a => unit, x : t('a)) => {
+  let fe : (exn => unit) =fe |> Js.Option.getWithDefault(ignore);
   x((f, fe));
 };
+ 
+let runExn = (~fs, ~fe, x) => {
+  Js.log("OBSOLETE FUNCTION CALL, use Async.run insteadn of Async.runExn");
+  x((fs, fe));
+}
