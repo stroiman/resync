@@ -13,6 +13,16 @@ or
 
     yarn add re-sync
 
+## v. 0.3 breaking change
+
+In version 0.1 there were two functions to execute the async workflow, `run` and
+`runExn`. The first would only be able to handle positive outcomes, where the
+latter would take two callbacks, one for handling the successful outcome, and
+one for handling the failing outcome.
+
+This has been merged into one function, `run` that takes an optional exception
+callback. If no exception callback is specified, exceptions will be ignored.
+
 ## Description
 
 The heart of the module is the type:
@@ -38,14 +48,19 @@ Useful funcitons.
  * `tryCatch` Takes a function that might handle an exception. Return `Some` if the
      exception was handled, and `None` if it wasn't.
  * `timeout` Helps handling handling functions that take too long to execute
+ * `run(~fe,f)` Takes a callback to be called with the final value, and an
+     optional callback to be called with any exceptions caught during execution.
  * `from_js` Helps creating an `Async.t` from an async javascript function. See
      exmaple later
+
+Be aware that this library does not evaluate any values in advance. Nothing is
+evaluated until you call the `run` function.
 
 Look at the example tests for a hint as to their usage.
 
 ## Only use the exception path for truly exceptional cases.
 
-It is a common pattern to use a result type, like this.
+It is a common pattern to use a result type, like this (defined in Js.Result).
 ```
 type result('a,'b) =
   | Ok('a)
