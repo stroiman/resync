@@ -50,28 +50,33 @@ let from_js = (jsAsync: ((Js.Null.t(Js.Exn.t), 'a) => unit) => unit) : t('a) =>
 let once = (x:t('a)) : t('a) => {
   let resolution = ref(None);
   let waiting = ref([]);
-  let dispatch = () => {
+
+  let dispatch = (result, (cb, ecb)) => {
+    switch(result) {
+      | Js.Result.Ok(x) => cb(x);
+      | Js.Result.Error(x) => ecb(x);
+    }
+  };
+
+  let tryDispatch = () => 
       switch (resolution^) {
         | None => ()
-        | Some(Js.Result.Ok(x)) => { 
+        | Some(x) => { 
           let targets = waiting^;
           waiting := [];
-          targets |> List.iter(((cb,_)) => cb(x));
+          targets |> List.iter((callbacks) => dispatch(x,callbacks));
         };
-        | Some(Js.Result.Error(x)) => { 
-          let targets = waiting^;
-          waiting := [];
-          targets |> List.iter(((_,cb)) => cb(x));
-        }
       };
-  };
-  let dispatch = () => Js.Global.setTimeout(dispatch, 0) |> ignore;
-  x((s => { resolution:=Some(Js.Result.Ok(s)); dispatch() },
-     e => { resolution:=Some(Js.Result.Error(e)); dispatch() }));
+
+  let tryDispatch = () => Js.Global.setTimeout(tryDispatch, 0) |> ignore;
+  x((s => { resolution:=Some(Js.Result.Ok(s)); tryDispatch() },
+     e => { resolution:=Some(Js.Result.Error(e)); tryDispatch() }));
 
   (callbacks) => {
-    waiting := [callbacks, ...(waiting^)];
-    dispatch();
+    switch(resolution^) {
+      | None => waiting := [callbacks, ...(waiting^)]
+      | Some(x) => dispatch(x,callbacks)
+    }
   };
 };
 
