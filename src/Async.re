@@ -47,6 +47,34 @@ let from_js = (jsAsync: ((Js.Null.t(Js.Exn.t), 'a) => unit) => unit) : t('a) =>
         }
     );
 
+let once = (x:t('a)) : t('a) => {
+  let resolution = ref(None);
+  let waiting = ref([]);
+  let dispatch = () => {
+      switch (resolution^) {
+        | None => ()
+        | Some(Js.Result.Ok(x)) => { 
+          let targets = waiting^;
+          waiting := [];
+          targets |> List.iter(((cb,_)) => cb(x));
+        };
+        | Some(Js.Result.Error(x)) => { 
+          let targets = waiting^;
+          waiting := [];
+          targets |> List.iter(((_,cb)) => cb(x));
+        }
+      };
+  };
+  let dispatch = () => Js.Global.setTimeout(dispatch, 0) |> ignore;
+  x((s => { resolution:=Some(Js.Result.Ok(s)); dispatch() },
+     e => { resolution:=Some(Js.Result.Error(e)); dispatch() }));
+
+  (callbacks) => {
+    waiting := [callbacks, ...(waiting^)];
+    dispatch();
+  };
+};
+
 let timeout = (duration:duration, x:t('a)) : t('a) => {
   let resolved = ref (false);
   ((successCb, errorCb)) => {

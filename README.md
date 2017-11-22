@@ -52,6 +52,9 @@ Useful funcitons.
      optional callback to be called with any exceptions caught during execution.
  * `from_js` Helps creating an `Async.t` from an async javascript function. See
      exmaple later
+ * `once` Takes something that resolves asynchronously, and allow it to be
+     called multiple times, each time yielding the same result. A database
+     connection pool factory is a good candidate.
 
 Be aware that this library does not evaluate any values in advance. Nothing is
 evaluated until you call the `run` function.

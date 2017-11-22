@@ -126,5 +126,34 @@ describe("Async module", [
         |> Async.from_js
         |> shoulda(asyncResolve >=> equal(42))
     })
+  ]),
+
+  describe("once", [
+    it("only calls the underlying function once, we hook up functions before resolution", (_) => {
+      let start = ref(0);
+      let f = ((cb,_errCb)) => {
+        start := start^ + 1;
+         Js.Global.setTimeout(() => cb(start^), 10) |> ignore;
+      }; 
+      let f = f |> Async.once;
+
+      f |> Async.bind(~f=(_) => f)
+        |> shoulda(asyncResolve >=> equal(1));
+    }),
+
+    it("Only calls the underlying function onde, we hook up functions after resolution", (_) => {
+      let start = ref(0);
+      let f = ((cb,_errCb)) => {
+        start := start^ + 1;
+        Js.Global.setTimeout(() => cb(start^), 0) |> ignore;
+      }; 
+      let f = f |> Async.once;
+
+      let after = delay => ((cb,_)) => Js.Global.setTimeout(cb, delay) |> ignore;
+      after(10) 
+        |> Async.bind(~f=() => f)
+        |> Async.bind(~f=(_) => f)
+        |> shoulda(asyncResolve >=> equal(1));
+    })
   ])
 ]) |> register
