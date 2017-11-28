@@ -37,6 +37,8 @@ let tryCatch = (~f: exn=>option('a), x:t('a)) : t('a) => {
       }));
 };
 
+let iter = f => map(~f=x => {f(x); x});
+
 let from_js = (jsAsync: ((Js.Null.t(Js.Exn.t), 'a) => unit) => unit) : t('a) =>
   ((successCb, errorCb)) =>
     jsAsync(

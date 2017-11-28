@@ -155,5 +155,22 @@ describe("Async module", [
         |> Async.bind(~f=(_) => f)
         |> shoulda(asyncResolve >=> equal(1));
     })
+  ]),
+
+  describe("iter", [
+    it("calls the inline function", (_,don) => {
+      let x = ref(42);
+      Async.return(1)
+        |> Async.iter(y => x := x^ + y)
+        |> Async.run((_) => (x^ |> shoulda(equal(43)))(don))
+    }),
+
+    it("Returns the original value", (_) => {
+      let x = ref(42);
+      Async.return(1)
+        |> Async.iter(y => x := x^ + y)
+        |> shoulda(asyncResolve >=> equal(1))
+    })
+
   ])
 ]) |> register
