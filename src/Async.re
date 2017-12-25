@@ -8,7 +8,7 @@ let toMilliseconds = fun | MilliSeconds(x) => x | Seconds(x) => x*1000;
 exception JsError(Js.Exn.t);
 exception Timeout;
 
-let bind = (~f: 'a => t('b), x: t('a)) : t('b) =>
+let bind = (f: 'a => t('b), x: t('a)) : t('b) =>
   ((successCb, errorCB)) =>
     x((
       (a) =>
@@ -18,7 +18,7 @@ let bind = (~f: 'a => t('b), x: t('a)) : t('b) =>
       errorCB
     ));
 
-let map = (~f: 'a => 'b, x: t('a)) : t('b) =>
+let map = (f: 'a => 'b, x: t('a)) : t('b) =>
   ((successCb, errorCb)) =>
     x((
       (a) =>
@@ -29,7 +29,7 @@ let map = (~f: 'a => 'b, x: t('a)) : t('b) =>
       errorCb
     ));
 
-let tryCatch = (~f: exn=>option('a), x:t('a)) : t('a) => {
+let tryCatch = (f: exn=>option('a), x:t('a)) : t('a) => {
   ((successCb, errorCb)) => x((successCb, 
     x => switch(f(x)) {
       | Some(x) => successCb(x)
@@ -37,7 +37,7 @@ let tryCatch = (~f: exn=>option('a), x:t('a)) : t('a) => {
       }));
 };
 
-let iter = f => map(~f=x => {f(x); x});
+let iter = f => map(x => {f(x); x});
 
 let from_js = (jsAsync: ((Js.Null.t(Js.Exn.t), 'a) => unit) => unit) : t('a) =>
   ((successCb, errorCb)) =>
