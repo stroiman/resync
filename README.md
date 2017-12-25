@@ -13,6 +13,30 @@ or
 
     yarn add re-sync
 
+## v. 0.4 breaking change
+
+In previous versions, functions took labeled arguments, e.g.
+```
+DbConnection.open(url)
+|> Async.bind(~f=con => con |> Query.execute(
+|> processResult(queryResult => ...)
+```
+
+I disliked the usage of labeled arguments for this kind of programming, and most
+similar code I have seen also supports an implicit piping syntax, so this now
+becomes
+```
+DbConnection.open(url)
+|> Async.bind(con => Query.execute(query, con)
+|> processResult(queryResult => ...)
+```
+Or, because the `Query.execute` supports piping in this hypothetical example:
+```
+DbConnection.Open(url)
+|> Async.bind(Query.execute(query))
+|> processResult(queryResult => ...)
+```
+
 ## v. 0.3 breaking change
 
 In version 0.1 there were two functions to execute the async workflow, `run` and
@@ -48,7 +72,7 @@ Useful funcitons.
  * `tryCatch` Takes a function that might handle an exception. Return `Some` if the
      exception was handled, and `None` if it wasn't.
  * `timeout` Helps handling handling functions that take too long to execute
- * `run(~fe,f)` Takes a callback to be called with the final value, and an
+ * `run(~fe=?,f)` Takes a callback to be called with the final value, and an
      optional callback to be called with any exceptions caught during execution.
  * `from_js` Helps creating an `Async.t` from an async javascript function. See
      exmaple later
@@ -101,7 +125,7 @@ module Bcrypt = {
   let hash = (password, gen) => hash(password,gen)
     |> Async.from_js;
   let compare = (password, hash) => compare(password, hash)
-    |> Async.from_js |> Async.map(~f=Js.to_bool);
+    |> Async.from_js |> Async.map(Js.to_bool);
 }
 ```
 
