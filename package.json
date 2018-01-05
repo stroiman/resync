@@ -1,5 +1,6 @@
 {
   "name": "re-sync",
+  "description": "Async support library for Reason/Bucklescript ",
   "version": "0.4.0",
   "scripts": {
     "build": "bsb -make-world -verbose",
@@ -10,9 +11,19 @@
     "test:watch": "nodemon node_modules/re-respect/bin/respect",
     "dev": "run-p watch test:watch"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PeteProgrammer/resync.git"
+  },
   "keywords": [
-    "BuckleScript"
+    "reason",
+    "bucklescript",
+    "async"
   ],
+  "bugs": {
+    "url": "https://github.com/PeteProgrammer/resync/issues"
+  },
+  "homepage": "https://github.com/PeteProgrammer/resync#readme",
   "license": "MIT",
   "devDependencies": {
     "bs-platform": "2.0.0",
