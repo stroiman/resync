@@ -2,6 +2,12 @@ language: node_js
 node_js: 
  - "8"
 
+install:
+  - cd tests && yarn install
+
+script:
+  - cd tets && yarn test
+
 deploy:
   provider: npm
   email: peter@stroiman.com
