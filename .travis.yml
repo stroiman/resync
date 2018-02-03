@@ -6,7 +6,7 @@ install:
   - cd tests && yarn install
 
 script:
-  - cd tets && yarn test
+  - yarn test
 
 deploy:
   provider: npm
