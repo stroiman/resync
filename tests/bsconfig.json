@@ -5,7 +5,7 @@
   "version": "0.1.0",
   "refmt": 3,
   "sources": [
-    { "dir": ".",
+    { "dir": "tests",
       "type": "dev" }
   ],
   "bs-dependencies" : [
