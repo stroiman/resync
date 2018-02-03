@@ -1,0 +1,9 @@
+.DS_Store
+.merlin
+npm-debug.log
+/lib/bs/
+/node_modules/
+!/lib/node_modules/
+.bsb.lock
+yarn-error.log
+lib

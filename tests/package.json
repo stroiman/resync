@@ -1,0 +1,20 @@
+{
+  "scripts": {
+    "build": "bsb -make-world -verbose",
+    "watch": "bsb -make-world -w",
+    "clean": "bsb -clean-world -verbose",
+    "test:run": "respect",
+    "test": "run-s clean build test:run",
+    "test:watch": "nodemon node_modules/re-respect/bin/respect",
+    "dev": "run-p watch test:watch"
+  },
+  "devDependencies": {
+    "@stroiman/respect": "^0.5.4",
+    "bs-platform": "2.0.0",
+    "nodemon": "^1.12.1",
+    "npm-run-all": "^4.1.2"
+  },
+  "dependencies": {
+    "re-sync": "file:.."
+  }
+}
