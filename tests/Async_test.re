@@ -9,28 +9,25 @@ external asyncThrowingFunction : (int, (Js.null(Js.Exn.t), int) => unit) => unit
 [@bs.module "errorFunctions"]
 external asyncSucceedingFunction : (int, (Js.null(Js.Exn.t), int) => unit) => unit = "";
 
-let haveMessage = expected => actual => 
+let haveMessage = expected : matcher(exn, option(string)) => actual => 
   switch(actual) {
     | Async.JsError(err) => equal(expected, Js.Exn.message(err))
-    | _ => SyncMatchResult(MatchFailure(actual |> Obj.repr))
+    | _ => matchFailure(actual,expected)
     };
 
-let asyncResolve = (actual:Async.t('a)) => {
-  let result = cb => {
-    let successCb = x => cb(MatchSuccess(x));
-    let exnCb = x => cb(MatchFailure(x |> Obj.repr));
-    actual |> Async.run(~fe=exnCb, successCb)
-    };
-  AsyncMatchResult(result);
+let asyncResolve : matcher(Async.t('a),'b) = (actual:Async.t('a)) => (cb : matchResult('b) => unit) => {
+  let successCb = x => cb(MatchSuccess(x));
+  let exnCb = x => cb(MatchFailure(x |> Obj.repr, x |> Obj.repr));
+  actual |> Async.run(~fe=exnCb, successCb)
 };
 
-let asyncThrow = (actual:Async.t('a)) => {
+let asyncThrow : matcher(Async.t('a), exn) = (actual:Async.t('a)) => {
   let result = cb => {
-    let successCb = x => cb(MatchFailure(x |> Obj.repr));
+    let successCb = x => cb(MatchFailure(x |> Obj.repr, x |> Obj.repr));
     let exnCb = x => cb(MatchSuccess(x));
     actual |> Async.run(successCb,~fe=exnCb)
     };
-  AsyncMatchResult(result);
+  result
 };
 
 describe("Async module", [

@@ -29,6 +29,6 @@
     "bs-platform": "2.0.0",
     "nodemon": "^1.12.1",
     "npm-run-all": "^4.1.2",
-    "re-respect": "0.0.9"
+    "re-respect": "0.5.1"
   }
 }
