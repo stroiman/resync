@@ -2,6 +2,13 @@
 # yarn lockfile v1
 
 
+"@stroiman/respect@^0.5.4":
+  version "0.5.4"
+  resolved "https://registry.yarnpkg.com/@stroiman/respect/-/respect-0.5.4.tgz#8559473ae34ec743d0d072bface1ae2d62f3ae59"
+  dependencies:
+    glob "^7.1.2"
+    re-sync "^0.4.0"
+
 abbrev@1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/abbrev/-/abbrev-1.1.1.tgz#f8f2c887ad10bf67f634f005b6987fed3179aac8"
@@ -1234,11 +1241,9 @@ rc@^1.0.1, rc@^1.1.6, rc@^1.1.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-re-respect@0.5.1:
-  version "0.5.1"
-  resolved "https://registry.yarnpkg.com/re-respect/-/re-respect-0.5.1.tgz#0fafc939ca48cbcda2997f09580bc0b5a7fe13b7"
-  dependencies:
-    glob "^7.1.2"
+re-sync@^0.4.0:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/re-sync/-/re-sync-0.4.0.tgz#ec727496d4e1d8bb990e6322b0c7e55c1718ddd6"
 
 read-pkg@^3.0.0:
   version "3.0.0"

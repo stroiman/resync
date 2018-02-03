@@ -26,9 +26,9 @@
   "homepage": "https://github.com/stroiman/resync#readme",
   "license": "MIT",
   "devDependencies": {
+    "@stroiman/respect": "^0.5.4",
     "bs-platform": "2.0.0",
     "nodemon": "^1.12.1",
-    "npm-run-all": "^4.1.2",
-    "re-respect": "0.5.1"
+    "npm-run-all": "^4.1.2"
   }
 }
