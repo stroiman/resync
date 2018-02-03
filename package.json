@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/PeteProgrammer/resync.git"
+    "url": "git+https://github.com/stroiman/resync.git"
   },
   "keywords": [
     "reason",
@@ -21,9 +21,9 @@
     "async"
   ],
   "bugs": {
-    "url": "https://github.com/PeteProgrammer/resync/issues"
+    "url": "https://github.com/stroiman/resync/issues"
   },
-  "homepage": "https://github.com/PeteProgrammer/resync#readme",
+  "homepage": "https://github.com/stroiman/resync#readme",
   "license": "MIT",
   "devDependencies": {
     "bs-platform": "2.0.0",
