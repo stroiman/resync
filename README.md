@@ -2,6 +2,9 @@
 
 [![Build Status](https://travis-ci.org/PeteProgrammer/resync.svg?branch=master)](https://travis-ci.org/PeteProgrammer/resync)
 
+__Attention__ - _The NPM package has moved to `@stroiman/async`. Remember to
+update both _package.json_ AND `bsconfig.json`._
+
 This module started its life because I was connecting to the js mongo driver
 from reason code. The driver is asynchronous, and can be used with either
 callbacks or promises. But using promises in the heart of my reason code just
