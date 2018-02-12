@@ -1,5 +1,5 @@
 # Changelog
 
-## 0.4.2
+## 0.5.0
 
   * Moved package to @stroiman/async npm repo

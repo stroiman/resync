@@ -2,6 +2,9 @@
 
 Helper for async Reason/Bucklescript code without Promises.
 
+__Attention__ - _The NPM package has moved to `@stroiman/async`. Remember to
+update both _package.json_ AND `bsconfig.json`._
+
 [![Build Status](https://travis-ci.org/stroiman/resync.svg?branch=master)](https://travis-ci.org/stroiman/resync)
 
 I wrote this library because I needed to deal with async code, but I wanted to
