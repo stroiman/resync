@@ -5,7 +5,7 @@
     "clean": "bsb -clean-world -verbose",
     "test:run": "respect",
     "test": "run-s clean build test:run",
-    "test:watch": "nodemon node_modules/re-respect/bin/respect",
+    "test:watch": "nodemon node_modules/.bin/respect",
     "dev": "run-p watch test:watch"
   },
   "devDependencies": {
