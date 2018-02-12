@@ -1,67 +1,41 @@
 # Reason module for Async
 
-[![Build Status](https://travis-ci.org/PeteProgrammer/resync.svg?branch=master)](https://travis-ci.org/PeteProgrammer/resync)
+Helper for async Reason/Bucklescript code without Promises.
 
-This module started its life because I was connecting to the js mongo driver
-from reason code. The driver is asynchronous, and can be used with either
-callbacks or promises. But using promises in the heart of my reason code just
-felt wrong, so slowly work for this library began.
+[![Build Status](https://travis-ci.org/stroiman/resync.svg?branch=master)](https://travis-ci.org/stroiman/resync)
 
-This library has been published as 're-sync' to npm
+I wrote this library because I needed to deal with async code, but I wanted to
+avoid using promises in order to keep the core of my application javascript
+agnostic.
 
-    npm install --save re-sync
+## Installation
 
-or
+Run `npm install --save @stroiman/async` and add `@stroiman/async` to the `bs-dependencies` in `bsconfig.json`.
 
-    yarn add re-sync
+## Documentation
 
-## v. 0.4 breaking change
+The heart of this module is the type:
 
-In previous versions, functions took labeled arguments, e.g.
-```
-DbConnection.open(url)
-|> Async.bind(~f=con => con |> Query.execute(
-|> processResult(queryResult => ...)
-```
-
-I disliked the usage of labeled arguments for this kind of programming, and most
-similar code I have seen also supports an implicit piping syntax, so this now
-becomes
-```
-DbConnection.open(url)
-|> Async.bind(con => Query.execute(query, con)
-|> processResult(queryResult => ...)
-```
-Or, because the `Query.execute` supports piping in this hypothetical example:
-```
-DbConnection.Open(url)
-|> Async.bind(Query.execute(query))
-|> processResult(queryResult => ...)
+Reason syntax:
+```Reason
+module Async = {
+  type t('a) = (('a => unit, exn => unit)) => unit;
+}
 ```
 
-## v. 0.3 breaking change
-
-In version 0.1 there were two functions to execute the async workflow, `run` and
-`runExn`. The first would only be able to handle positive outcomes, where the
-latter would take two callbacks, one for handling the successful outcome, and
-one for handling the failing outcome.
-
-This has been merged into one function, `run` that takes an optional exception
-callback. If no exception callback is specified, exceptions will be ignored.
-
-## Description
-
-The heart of the module is the type:
-
-```
-type t('a) = (('a => unit, exn => unit)) => unit;
+OCaml syntax:
+```ocaml
+type 'a t = (('a -> unit) * (exn -> unit)) -> unit
 ```
 
-So, it's a function that takes two callbacks, one that will be executed when
-things succeed, and one that is executed when an exception is thrown.
+So, it's a function that takes two callbacks, one that will be executed if an
+operation succeeds, and one that will be executed if an exception is thrown.
 
 So if you have such a function, you can use this library to glue functions
 together that operate asynchronously.
+
+If the last argument of your async function conforms to this signature, then you
+can use currying to compose functions together with this library.
 
 Useful funcitons.
 
@@ -90,7 +64,8 @@ Look at the example tests for a hint as to their usage.
 ## Only use the exception path for truly exceptional cases.
 
 It is a common pattern to use a result type, like this (defined in Js.Result).
-```
+
+```reason
 type result('a,'b) =
   | Ok('a)
   | Error('b)
@@ -98,8 +73,9 @@ type result('a,'b) =
 
 This library does not attempt to replace this pattern,
 This type can still be used with the async module:
-```
-type asyncResult('a,'b) = async(result('a,'b));
+
+```reason
+type asyncResult('a,'b) = Async.t(result('a,'b));
 ```
 
 This is used a lot in my own code, and exceptions are only used to handle truly
@@ -113,8 +89,8 @@ A common pattern in JavaScript is to have a function accept a callback that
 accepts two arguments, an error and a result. The error argument will receive
 `null` if the operation succeeded.
 
-`Resync` supports handling this case easily. This small adaption of the
-`bsyncjs` module shows how:
+This library supports handling this case easily. This small adaption of the
+`bcryptjs` module shows how:
 
 ```
 module Bcrypt = {
