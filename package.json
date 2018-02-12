@@ -23,5 +23,8 @@
   "license": "MIT",
   "devDependencies": {
     "bs-platform": "2.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
