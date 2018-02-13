@@ -1,5 +1,6 @@
 open Respect.Dsl.Async;
 open Respect.Matcher;
+open Matchers;
 
 exception Dummy;
 exception Dummy2;
@@ -14,12 +15,6 @@ let haveMessage = expected : matcher(exn, option(string)) => actual =>
     | Async.JsError(err) => equal(expected, Js.Exn.message(err))
     | _ => matchFailure(actual,expected)
     };
-
-let asyncResolve : matcher(Async.t('a),'b) = (actual:Async.t('a)) => (cb : matchResult('b) => unit) => {
-  let successCb = x => cb(MatchSuccess(x));
-  let exnCb = x => cb(MatchFailure(x |> Obj.repr, x |> Obj.repr));
-  actual |> Async.run(~fe=exnCb, successCb)
-};
 
 let asyncThrow : matcher(Async.t('a), exn) = (actual:Async.t('a)) => {
   let result = cb => {

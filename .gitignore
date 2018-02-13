@@ -2,6 +2,7 @@
 .merlin
 npm-debug.log
 /lib/bs/
+/lib/ocaml/
 /node_modules/
 !/lib/node_modules/
 .bsb.lock
