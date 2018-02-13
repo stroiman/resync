@@ -3,10 +3,12 @@ node_js:
  - "8"
 
 install:
-  - cd tests && yarn install
+  - cd $TRAVIS_BUILD_DIR/tests && yarn install
+  - cd $TRAVIS_BUILD_DIR
 
 script:
-  - yarn test
+  - cd $TRAVIS_BUILD_DIR/tests && yarn test
+  - cd $TRAVIS_BUILD_DIR
 
 deploy:
   provider: npm
