@@ -116,4 +116,8 @@ let run = (~fe=?, f : 'a => unit, x : t('a)) => {
 let runExn = (~fs, ~fe, x) => {
   Js.log("OBSOLETE FUNCTION CALL, use Async.run insteadn of Async.runExn");
   x((fs, fe));
+};
+
+module Infix = {
+  let ( >>= ) = (x,f) => x |> bind(f)
 }
