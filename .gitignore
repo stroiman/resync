@@ -1,6 +1,7 @@
 .DS_Store
 .merlin
 npm-debug.log
+/lib/ocaml/
 /lib/bs/
 /node_modules/
 !/lib/node_modules/
