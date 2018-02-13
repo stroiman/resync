@@ -10,7 +10,7 @@
   },
   "devDependencies": {
     "@stroiman/respect": "0.7.0-rc.1",
-    "bs-platform": "2.0.0",
+    "bs-platform": "^2.2.0",
     "nodemon": "^1.12.1",
     "npm-run-all": "^4.1.2"
   },
