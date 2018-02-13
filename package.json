@@ -1,7 +1,7 @@
 {
   "name": "@stroiman/async",
   "description": "Async support library for Reason/Bucklescript ",
-  "version": "0.5.2-rc.3",
+  "version": "0.5.2",
   "scripts": {
     "build": "bsb -make-world -verbose",
     "watch": "bsb -make-world -w",
