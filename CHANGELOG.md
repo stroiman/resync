@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.6.0
+
+ * Support parallel execution through `Async.all`
+
 ## 0.5.1
 
  * Fixed package name in bsconfig.json
