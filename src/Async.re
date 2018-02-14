@@ -128,14 +128,20 @@ module IntMap = Map.Make(I);
 let both = (a : t('a), b: t('b)) : t(('a,'b)) => ((fs,fe)) => {
   let theA = ref(None);
   let theB = ref(None);
+  let theErr = ref(None);
+  let fe = err => 
+    if (Js.Option.isNone(theErr^)) {
+        theErr := Some(err);
+        fe(err);
+    };
   let checkComplete = () => {(
     switch((theA^, theB^)) {
       | (Some(a), Some(b)) => fs((a,b))
       | _ => ()
     }
     )};
-  a |> once |> run(x => { theA := Some(x); checkComplete() });
-  b |> once |> run(x => { theB := Some(x); checkComplete() });
+  a |> once |> run(~fe,x => { theA := Some(x); checkComplete() });
+  b |> once |> run(~fe,x => { theB := Some(x); checkComplete() });
 };
 
 let rec all = (xs : list(t('a))) : t(list('a)) => {
