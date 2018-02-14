@@ -116,4 +116,34 @@ let run = (~fe=?, f : 'a => unit, x : t('a)) => {
 let runExn = (~fs, ~fe, x) => {
   Js.log("OBSOLETE FUNCTION CALL, use Async.run insteadn of Async.runExn");
   x((fs, fe));
-}
+};
+
+module I = {
+  type t = int;
+  let compare = (a:int,b:int) => Pervasives.compare(a,b);
+};
+
+module IntMap = Map.Make(I);
+
+let both = (a : t('a), b: t('b)) : t(('a,'b)) => ((fs,fe)) => {
+  let theA = ref(None);
+  let theB = ref(None);
+  let checkComplete = () => {(
+    switch((theA^, theB^)) {
+      | (Some(a), Some(b)) => fs((a,b))
+      | _ => ()
+    }
+    )};
+  a |> once |> run(x => { theA := Some(x); checkComplete() });
+  b |> once |> run(x => { theB := Some(x); checkComplete() });
+};
+
+let rec all = (xs : list(t('a))) : t(list('a)) => {
+  switch(xs) {
+    | [] => return([]);
+    | [x, ...xs] => {
+      let xs2:t(list('a)) = all(xs);
+      both(x, xs2) |> map(((x,xs)) => [x, ...xs]);
+      }
+    };
+};
