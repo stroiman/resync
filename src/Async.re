@@ -43,7 +43,7 @@ let from_js = (jsAsync: ((Js.Null.t(Js.Exn.t), 'a) => unit) => unit) : t('a) =>
   ((successCb, errorCb)) =>
     jsAsync(
       (err, s) =>
-        switch (Js.Null.to_opt(err)) {
+        switch (Js.Null.toOption(err)) {
         | None => successCb(s)
         | Some(x) => errorCb(JsError(x))
         }
