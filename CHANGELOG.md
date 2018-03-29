@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.7.0
+
+ * Update bs-platform dependency
+ * Change use of `Js.Null.to_opt` to use `toOption`. This change is incompatible
+     with bs-platform versions prior to 2.2
+
 ## 0.6.0
 
  * Support parallel execution through `Async.all`
