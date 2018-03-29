@@ -6,3 +6,4 @@ npm-debug.log
 /node_modules/
 !/lib/node_modules/
 .bsb.lock
+*.log
